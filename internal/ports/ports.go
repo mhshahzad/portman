@@ -8,6 +8,7 @@ type Port struct {
 	Protocol    string // tcp or udp
 	ProcessName string // Name of the process owning the port
 	PID         int    // Process ID owning the port
+	Source      string // ss, lsof, netstat, proc
 }
 
 // SuggestNext returns the first available port in the range 3000-9999.

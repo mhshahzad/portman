@@ -126,12 +126,12 @@ Deploy without guessing, without conflicts, and without maintaining a spreadshee
 
 * **Language**: Go 1.24+
 * **CLI Framework**: Cobra
-* **System Commands**: `ss` (from iproute2)
+* **Backend Tools**: `ss`, `lsof`, `netstat` 
 
 ## Development Philosophy
 
 1. CLI-first.
-2. Linux-first.
+2. Linux & macOS support. 
 3. Single binary deployment.
 4. Minimal dependencies.
 5. Small and understandable codebase.

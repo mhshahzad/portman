@@ -16,14 +16,15 @@ tcp    LISTEN     0      128    [::]:80                          [::]:*         
 tcp    LISTEN     0      128    127.0.0.1:8080                   0.0.0.0:*
 `
 	expected := []ports.Port{
-		{Number: 22, Protocol: "tcp", ProcessName: "sshd", PID: 1122},
-		{Number: 5432, Protocol: "tcp", ProcessName: "postgres", PID: 1234},
-		{Number: 68, Protocol: "udp", ProcessName: "dhclient", PID: 987},
-		{Number: 80, Protocol: "tcp", ProcessName: "nginx", PID: 2000},
-		{Number: 8080, Protocol: "tcp", ProcessName: "", PID: 0},
+		{Number: 22, Protocol: "tcp", ProcessName: "sshd", PID: 1122, Source: "ss"},
+		{Number: 5432, Protocol: "tcp", ProcessName: "postgres", PID: 1234, Source: "ss"},
+		{Number: 68, Protocol: "udp", ProcessName: "dhclient", PID: 987, Source: "ss"},
+		{Number: 80, Protocol: "tcp", ProcessName: "nginx", PID: 2000, Source: "ss"},
+		{Number: 8080, Protocol: "tcp", ProcessName: "", PID: 0, Source: "ss"},
 	}
 
-	result := ParseSSOutput(input)
+	scanner := &SSScanner{}
+	result := scanner.parse(input)
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("expected %v, got %v", expected, result)
