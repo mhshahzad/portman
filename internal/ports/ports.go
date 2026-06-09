@@ -8,23 +8,19 @@ type Port struct {
 	Protocol    string // tcp or udp
 	ProcessName string // Name of the process owning the port
 	PID         int    // Process ID owning the port
-	Source      string // ss, lsof, netstat, proc
+	Source      string // ss, lsof, netstat, proc, docker
+	Service     string // human-readable service name
+	ContainerID string // ID of the container (if applicable)
 }
 
 // SuggestNext returns the first available port in the range 3000-9999.
 // If all ports in the range are occupied, it returns -1.
-func SuggestNext(activePorts []Port) int {
+func SuggestNext(occupiedPorts map[int]bool) int {
 	const startPort = 3000
 	const endPort = 9999
 
-	// Create a map for O(1) lookup of active ports
-	occupied := make(map[int]bool)
-	for _, p := range activePorts {
-		occupied[p.Number] = true
-	}
-
 	for p := startPort; p <= endPort; p++ {
-		if !occupied[p] {
+		if !occupiedPorts[p] {
 			return p
 		}
 	}

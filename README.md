@@ -68,12 +68,13 @@ portman status
 Example output:
 
 ```text
-PORT    PROTOCOL    PROCESS    PID
-22      tcp         sshd       1122
-80      tcp         nginx      2000
-443     tcp         nginx      2000
-5432    tcp         postgres   1234
-6379    tcp         redis      3456
+PORT     PROTOCOL    SERVICE          PROCESS          PID      BACKING
+22       tcp         ssh              sshd             1122     system
+80       tcp         nginx            nginx            2000     system
+443      tcp         nginx            nginx            2000     system
+3000     tcp         web-app          -                -        docker
+5432     tcp         postgres         -                -        docker
+6379     tcp         redis            redis-server     3456     system
 ```
 
 Running without root privileges may hide process names and PIDs depending on your system configuration.

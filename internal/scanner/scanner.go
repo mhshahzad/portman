@@ -67,7 +67,9 @@ func (s *UnsupportedScanner) Scan() ([]ports.Port, error) {
 	return nil, fmt.Errorf("operating system %s is not supported", runtime.GOOS)
 }
 
-// Global scan function for backward compatibility and easy use
+// Global scan function for backward compatibility. 
+// Note: This now only returns system-level ports. 
+// For unified results including Docker, use the integration.Aggregator.
 func ScanActivePorts() ([]ports.Port, error) {
 	scanner := GetScanner()
 	return scanner.Scan()
