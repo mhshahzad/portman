@@ -140,3 +140,7 @@ Deploy without guessing, without conflicts, and without maintaining a spreadshee
 ## License
 
 Open Source
+
+## Contribution
+
+For contribution, Please see the full guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
