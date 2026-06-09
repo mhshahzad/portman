@@ -21,7 +21,8 @@ func (s *LsofScanner) Scan() ([]ports.Port, error) {
 	// -i: internet files
 	// -P: inhibit conversion of port numbers to port names
 	// -n: inhibit conversion of network numbers to host names
-	cmd := exec.Command("lsof", "-i", "-P", "-n")
+	// +c 0: show full command name
+	cmd := exec.Command("lsof", "-i", "-P", "-n", "+c", "0")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return nil, fmt.Errorf("lsof command failed: %w", err)
@@ -47,7 +48,7 @@ func (s *LsofScanner) parse(output string) []ports.Port {
 			continue
 		}
 
-		command := fields[0]
+		command := strings.ReplaceAll(fields[0], "\\x20", " ")
 		pid, _ := strconv.Atoi(fields[1])
 		protocol := strings.ToLower(fields[7])
 		name := fields[8] // e.g., *:22 or 127.0.0.1:8080

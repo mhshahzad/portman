@@ -19,7 +19,7 @@ func PrintTable(activePorts []ports.Port) {
 	ports.SortPorts(activePorts)
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', 0)
-	fmt.Fprintln(w, "PORT\tPROTOCOL\tPROCESS\tPID\tSOURCE")
+	fmt.Fprintln(w, "PORT\tPROTOCOL\tPROCESS\tPID")
 
 	for _, p := range activePorts {
 		process := p.ProcessName
@@ -30,7 +30,7 @@ func PrintTable(activePorts []ports.Port) {
 		if p.PID == 0 {
 			pidStr = "-"
 		}
-		fmt.Fprintf(w, "%d\t%s\t%s\t%s\t%s\n", p.Number, p.Protocol, process, pidStr, p.Source)
+		fmt.Fprintf(w, "%d\t%s\t%s\t%s\n", p.Number, p.Protocol, process, pidStr)
 	}
 	w.Flush()
 }
